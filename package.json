@@ -1,0 +1,29 @@
+{
+    "name": "be-cyber-media",
+    "version": "1.0.0",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon server.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "@prisma/client": "^6.3.1",
+        "bcrypt": "^5.1.1",
+        "cloudinary": "^2.5.1",
+        "dotenv": "^16.4.7",
+        "express": "^4.21.2",
+        "jsonwebtoken": "^9.0.2",
+        "multer": "^1.4.5-lts.1",
+        "mysql2": "^3.12.0",
+        "nodemon": "^3.1.9",
+        "prima": "^0.0.1",
+        "sequelize": "^6.37.5",
+        "sequelize-auto": "^0.8.8",
+        "streamifier": "^0.1.1",
+        "typescript": "^5.7.3"
+    },
+    "type": "module"
+}
