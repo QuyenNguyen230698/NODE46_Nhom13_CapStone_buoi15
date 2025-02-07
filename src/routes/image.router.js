@@ -1,6 +1,7 @@
 import express from "express";
 import multer from "multer";
 import { uploadImage, deleteImage, createImage, avatarImage, commentImage, getDataImage } from "../controller/image.controller.js";
+import { project } from "../configs/middlewares/protect.middleware.js";
 
 const router = express.Router();
 const storage = multer.memoryStorage();
@@ -10,7 +11,7 @@ router.get("/data", getDataImage)
 
 router.post("/upload", upload.single("image"), uploadImage);
 
-router.delete("/delete", deleteImage);
+router.delete("/delete",deleteImage);
 
 router.post("/create", createImage);
 

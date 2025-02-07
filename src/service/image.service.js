@@ -74,6 +74,10 @@ const imageService = {
             // Delete from Cloudinary
             await cloudinary.uploader.destroy(public_id);
 
+            await prisma.comments.deleteMany({
+                where: { image_id: image.image_id }
+            })
+
             // Delete from database
             await prisma.images.delete({
                 where: { image_id: image.image_id }
