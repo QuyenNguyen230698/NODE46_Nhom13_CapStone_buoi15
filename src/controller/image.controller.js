@@ -68,4 +68,13 @@ export const commentImage = async (req, res) => {
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
-  };
+};
+
+export const getDataImage = async (req, res) => {
+    try {
+      const result = await imageService.getDataImage(req);
+      res.status(200).json({ message: "Get data successfully", data: result });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+}

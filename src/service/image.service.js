@@ -120,6 +120,41 @@ const imageService = {
         } catch (error) {
             return responseError(`Failed to comment image: ${error.message}`);
         }
+    },
+    getDataImage: async (req) => {
+        try {
+            let { page, pageSize, user_id, search } = req.query;
+            page = +page > 0 ? +page : 1;
+            pageSize = +pageSize > 0 ? +pageSize : 10;
+            user_id = +user_id > 0 ? +user_id : undefined;
+            search = search || ``;
+
+            const whereUserId = user_id === undefined ? {} : {user_id: user_id}
+            const whereSearch = search.trim() === `` ? {} : {image_name: {contains: search}}
+            const where = {...whereUserId, ...whereSearch}
+
+            const skip = ( page -1 ) * pageSize;
+            const totalItem = await prisma.images.count()
+            const totalPage = Math.ceil(totalItem / pageSize)
+
+            const result = await prisma.images.findMany({
+                where: where,
+                skip,
+                take: pageSize,
+                orderBy: {
+                    created_at: 'desc'
+                }
+            });
+            return {
+                page,
+                pageSize,
+                totalPage,
+                totalItem,
+                data: result || []
+            };
+        } catch (error) {
+            return responseError(`Failed to get data image: ${error.message}`);
+        }
     }
 };
 
