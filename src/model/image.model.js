@@ -5,9 +5,9 @@ const image = sequelize.define(
     "image",
     {
         image_id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID,
             primaryKey: true,
-            autoIncrement: true,
+            defaultValue: DataTypes.UUIDV4, // Tạo UUID v4 tự động cho trường này
         },
         url: {
             type: DataTypes.STRING(255),
@@ -39,7 +39,7 @@ const image = sequelize.define(
             allowNull: false,
         },
         user_id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID, // Sử dụng UUID cho user_id
             allowNull: false,
         }
     },
@@ -62,4 +62,4 @@ const image = sequelize.define(
     }
 })();
 
-export default image
+export default image;

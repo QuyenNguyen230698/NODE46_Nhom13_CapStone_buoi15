@@ -1,4 +1,3 @@
-// Define the user model based on the database schema
 import { DataTypes } from "sequelize";
 import { sequelize } from "../configs/sequelize/init.sequelize.js";
 
@@ -6,9 +5,9 @@ const user = sequelize.define(
     "user",
     {
         user_id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID,
             primaryKey: true,
-            autoIncrement: true,
+            defaultValue: DataTypes.UUIDV4, // Tạo UUID v4 tự động cho trường này
         },
         email: {
             type: DataTypes.STRING(255),
