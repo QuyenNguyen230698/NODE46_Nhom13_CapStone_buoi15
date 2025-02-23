@@ -62,7 +62,10 @@ const userService = {
           return responseError(`Password incorrect`);
        }
        const tokens = await userService.createToken(usersExists.user_id)
-       return tokens
+       return {
+        user: usersExists,
+        tokens
+       }
     },
      createToken: async (userId) => {
         if (!userId) {
