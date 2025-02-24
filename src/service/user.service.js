@@ -91,7 +91,7 @@ const userService = {
       
             // Check if user exists
             const existingUser = await prisma.users.findUnique({
-              where: { user_id: Number(user_id) }
+              where: { user_id: user_id }
             });
 
             if (!existingUser) {
@@ -102,7 +102,7 @@ const userService = {
 
             // Update user information
             const result = await prisma.users.update({
-              where: { user_id: Number(user_id) },
+              where: { user_id: user_id },
               data: {
                 email,
                 pass_word: hashPassword,

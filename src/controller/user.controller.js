@@ -46,7 +46,9 @@ const userController = {
             const resData = responseSuccess(user, `Login Successfully`, 200);
             res.status(resData.code).json(resData);
         } catch (error) {
-            next(error);
+            console.error('Login Error:', error);
+            const resData = responseError(error, "Login failed", 500);
+            res.status(resData.code).json(resData);
         }
     },
     createInfo: async (req, res, next) => {
