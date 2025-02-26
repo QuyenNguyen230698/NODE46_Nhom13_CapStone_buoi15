@@ -40,10 +40,6 @@ const imageService = {
         try {
             const { url, title, description, public_id, user_id } = req.body;
   
-            if (!url || !title || !description || !public_id || !user_id) {
-              return responseError('Missing required fields');
-            }
-  
             const result = await prisma.images.create({
               data: {
                 url,
@@ -60,7 +56,8 @@ const imageService = {
             return responseError(`Failed to create image: ${error.message}`);
         }
     },
-    deleteImage: async (public_id) => {
+    deleteImage: async (req) => {
+        const { image_id, public_id } = req.body;
         try {
             // First check if image exists in database
             const image = await prisma.images.findFirst({
@@ -75,12 +72,12 @@ const imageService = {
             await cloudinary.uploader.destroy(public_id);
 
             await prisma.comments.deleteMany({
-                where: { image_id: image.image_id }
+                where: { image_id: image_id }
             })
 
             // Delete from database
             await prisma.images.delete({
-                where: { image_id: image.image_id }
+                where: { image_id: image_id }
             });
 
             return { message: 'Image deleted successfully' };
@@ -158,6 +155,36 @@ const imageService = {
             };
         } catch (error) {
             return responseError(`Failed to get data image: ${error.message}`);
+        }
+    },
+    postDataImage: async (req) => {
+        try {
+            const { user_id } = req.body;
+            const result = await prisma.images.findMany({
+                where: { user_id },
+                orderBy: {
+                    created_at: 'desc'
+                }
+            })
+    
+            return result;
+        } catch (error) {
+            return responseError(`Failed to post data image: ${error.message}`);
+        }
+    },
+    listComment: async (req) => {
+        try {
+            const { image_id } = req.query;
+            const result = await prisma.comments.findMany({
+                where: { image_id },
+                orderBy: {
+                    created_at: 'desc'
+                }
+            })
+    
+            return result;
+        } catch (error) {
+            return responseError(`Failed to list comment: ${error.message}`);
         }
     }
 };

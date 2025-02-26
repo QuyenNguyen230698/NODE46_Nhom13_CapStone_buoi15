@@ -18,7 +18,7 @@ export const uploadImage = async (req, res) => {
 
 export const deleteImage = async (req, res) => {
     try {  
-      const result = await imageService.deleteImage(req.body.public_id);
+      const result = await imageService.deleteImage(req);
       res.status(200).json({ message: "Image deleted successfully", data: result });
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -62,6 +62,24 @@ export const commentImage = async (req, res) => {
 export const getDataImage = async (req, res) => {
     try {
       const result = await imageService.getDataImage(req);
+      res.status(200).json({ message: "Get data successfully", data: result });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+}
+
+export const postDataImage = async (req, res) => {
+    try {
+      const result = await imageService.postDataImage(req);
+      res.status(200).json({ message: "Get data successfully", data: result });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+}
+
+export const listComment = async (req, res) => {
+    try {  
+      const result = await imageService.listComment(req);
       res.status(200).json({ message: "Get data successfully", data: result });
     } catch (error) {
       res.status(500).json({ error: error.message });
