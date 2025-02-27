@@ -186,6 +186,9 @@ const imageService = {
         } catch (error) {
             return responseError(`Failed to list comment: ${error.message}`);
         }
+    },
+    testVPS: async (req) => {
+        return 'ok';
     }
 };
 

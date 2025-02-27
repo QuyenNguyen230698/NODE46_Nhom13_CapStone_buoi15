@@ -1,11 +1,13 @@
 import express from "express";
 import multer from "multer";
-import { uploadImage, deleteImage, createImage, avatarImage, commentImage, getDataImage, postDataImage, listComment } from "../controller/image.controller.js";
+import { uploadImage, deleteImage, createImage, avatarImage, commentImage, getDataImage, postDataImage, listComment, testVPS } from "../controller/image.controller.js";
 import { project } from "../configs/middlewares/protect.middleware.js";
 
 const router = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
+
+router.get("/",testVPS)
 
 router.get("/data", getDataImage)
 

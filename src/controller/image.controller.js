@@ -85,3 +85,12 @@ export const listComment = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
 }
+
+export const testVPS = async (req, res) => {
+    try {  
+      const result = await imageService.testVPS(req);
+      res.status(200).json({ message: "Get data successfully", data: result });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+}
